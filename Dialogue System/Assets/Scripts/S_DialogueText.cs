@@ -23,4 +23,5 @@ public class S_DialogueText //: ScriptableObject
     public string getDialogueText() { return dialogueText; }
     public S_Emotions getEmotion() { return emotion; }
     public S_Modes getMode() { return mode; }
+    public bool getIsRightCharacter() { return isRightCharacter; }
 }

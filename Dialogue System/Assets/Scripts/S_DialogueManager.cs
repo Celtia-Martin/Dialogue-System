@@ -74,4 +74,16 @@ public class S_DialogueManager : MonoBehaviour
     {
         return dialogueOptions.getSound();
     }
+    public AudioClip getCharacterSound(string nameCharacter)
+    {
+        if (characterDictionary.TryGetValue(nameCharacter, out S_DialogueCharacter value))
+        {
+
+            return value.getSound() ? value.getSound() : getSound();
+        }
+        else
+        {
+            return getSound();
+        }
+    }
 }

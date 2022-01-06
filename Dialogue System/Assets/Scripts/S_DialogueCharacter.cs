@@ -9,6 +9,8 @@ public class S_DialogueCharacter : ScriptableObject
     private string characterName;
     [SerializeField]
     private Sprite[] emotionSprites;
+    [SerializeField]
+    private AudioClip sound;
  
     //More things like sound, font...
     public string getCharacterName()
@@ -20,6 +22,10 @@ public class S_DialogueCharacter : ScriptableObject
         if(i<emotionSprites.Length)
             return emotionSprites[i];
         return null;
+    }
+    public AudioClip getSound()
+    {
+        return sound;
     }
 
 }

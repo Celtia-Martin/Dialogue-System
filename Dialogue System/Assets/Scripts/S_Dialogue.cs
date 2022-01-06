@@ -22,7 +22,7 @@ public class S_Dialogue //: ScriptableObject
             S_Emotions emotion;
             Enum.TryParse<S_Modes>(textInfo[3], out mode);
             Enum.TryParse<S_Emotions>(textInfo[2], out emotion);
-            newText = new S_DialogueText(textInfo[1], emotion, mode, textInfo[4], textInfo[0].Equals(1));
+            newText = new S_DialogueText(textInfo[1], emotion, mode, textInfo[4], textInfo[0].Equals("1"));
             dialogueTexts.Enqueue(newText);
 
         }
