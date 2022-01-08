@@ -86,4 +86,5 @@ public class S_DialogueManager : MonoBehaviour
             return getSound();
         }
     }
+    public bool getOtherSpriteVisible() { return dialogueOptions.getOtherSpriteIsVisible(); }
 }

@@ -16,13 +16,15 @@ public class S_DialogueUiManager : MonoBehaviour
     private Button continueButton;
     [SerializeField]
     private Color colorInactiveCharacter;
+    [SerializeField]
+    private string otherSpriteCommand = "OTHERSPRITE";
     private GameObject dialogueCanvas;
     private AudioSource myAudioSource;
     private S_DialogueManager myManager;
     private S_Dialogue currentDialogue;
     private string currentDialogueText;
     private Coroutine secuentialText;
-
+    private bool otherCharacterInvisible;
 
     private void Awake()
     {
@@ -41,29 +43,71 @@ public class S_DialogueUiManager : MonoBehaviour
     private void Start()
     {
         myManager = S_DialogueManager.singleton;
+        otherCharacterInvisible = myManager.getOtherSpriteVisible();
     }
     public void StartDialogue(string id)
     {
         currentDialogue = myManager.getDialogue(id);
-        if (currentDialogue!=null)
+        if (currentDialogue != null)
         {
             dialogueCanvas.SetActive(true);
+            ComprobateOtherCharacter();
             OnContinue();
         }
     }
+
+    private void ComprobateOtherCharacter()
+    {
+        S_DialogueText firstDialogue = currentDialogue.GetFirstDialogue();
+        if (firstDialogue != null && firstDialogue.getDialogueText().Trim().ToUpper().Equals(otherSpriteCommand))
+        {
+            if (firstDialogue.getIsRightCharacter())
+            {
+                ChangeRightSprite(myManager.getCharacterEmotionSprite(firstDialogue.getEmotion(), firstDialogue.getCharacterName()));
+            }
+            else
+            {
+                ChangeLeftSprite(myManager.getCharacterEmotionSprite(firstDialogue.getEmotion(), firstDialogue.getCharacterName()));
+            }
+            currentDialogue.nextDialogue();
+        }
+    }
+
     private void ChangeRightSprite(Sprite sprite)
     {
+        if (otherCharacterInvisible)
+            spriteRight.gameObject.SetActive(true);
         spriteRight.sprite = sprite;
         //spriteRight.SetNativeSize();
         spriteRight.color = Color.white;
-        spriteLeft.color = colorInactiveCharacter;
+        if (otherCharacterInvisible)
+        {
+            spriteLeft.gameObject.SetActive(false);
+        }
+        else
+        {
+            spriteLeft.color = colorInactiveCharacter;
+        }
+      
     }
+
     private void ChangeLeftSprite(Sprite sprite)
     {
+        if (otherCharacterInvisible)
+            spriteLeft.gameObject.SetActive(true);
         spriteLeft.sprite = sprite;
         //spriteLeft.SetNativeSize();
         spriteLeft.color = Color.white;
-        spriteRight.color = colorInactiveCharacter;
+ 
+        if (otherCharacterInvisible)
+        {
+            spriteRight.gameObject.SetActive(false);
+        }
+        else
+        {
+            spriteRight.color = colorInactiveCharacter;
+        }
+
     }
 
     public void OnContinue()

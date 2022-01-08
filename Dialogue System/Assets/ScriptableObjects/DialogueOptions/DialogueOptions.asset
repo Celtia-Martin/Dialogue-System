@@ -18,3 +18,4 @@ MonoBehaviour:
   - 0.1
   - 0.2
   sound: {fileID: 8300000, guid: cbcd3be4ab15a0e41b0dca7a40bad3da, type: 3}
+  otherSpriteIsInvisible: 0

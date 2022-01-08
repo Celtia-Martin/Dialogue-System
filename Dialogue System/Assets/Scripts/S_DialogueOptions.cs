@@ -10,7 +10,10 @@ public class S_DialogueOptions :ScriptableObject
     private float[] characterSeconds= new float[Enum.GetNames(typeof(S_Modes)).Length];
     [SerializeField]
     private AudioClip sound;
+    [SerializeField]
+    private bool otherSpriteIsInvisible;
     private static float defaultSpeed= 0.1f;
+    
     public float getSpeed(int index)
     {
         if (index < characterSeconds.Length)
@@ -23,6 +26,7 @@ public class S_DialogueOptions :ScriptableObject
         }
     }
     public AudioClip getSound() { return sound; }
+    public bool getOtherSpriteIsVisible() { return otherSpriteIsInvisible; }
  
 }
 [CustomEditor(typeof(S_DialogueOptions))]
