@@ -20,15 +20,23 @@ For the dialogues, you can create a txt file with the following format:
 
 
 (0 if left character, 1 if right character)|(character name)|(character emotion)|(speed mode)|(dialogue)
+
 (0 if left character, 1 if right character)|(character name)|(character emotion)|(speed mode)|(dialogue)
+
 ...
 
 
 Example:
+
+
 0|Character1|HAPPY|NORMAL|Hello!
+
 0|Character1|NEUTRAL|NORMAL|How did you sleep last night?
+
 1|Character2|SAD|SLOW|...
+
 1|Character2|SAD|SLOW|I didn't sleep
+
 
 
 If you want to change the sprite of the character that doesn't speaks first, write the following line at the beginning of the file:
