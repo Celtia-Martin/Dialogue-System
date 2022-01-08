@@ -8,7 +8,6 @@ public class S_DialogueInstance : MonoBehaviour
     public void OnDialogueActivated()
     {
         S_DialogueUiManager.singleton.StartDialogue(dialogueID);
-        Destroy(gameObject);
     }
 
 }
