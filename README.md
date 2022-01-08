@@ -31,7 +31,7 @@ Example:
 1|Character2|SAD|SLOW|I didn't sleep
 
 
-If you want to change the sprite of the character that not speaks first, write the following line at the begining of the file:
+If you want to change the sprite of the character that doesn't speaks first, write the following line at the beginning of the file:
 
 
 (0 if left character, 1 if right character)|(character name)|(character emotion)||OTHERSPRITE
