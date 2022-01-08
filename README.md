@@ -20,6 +20,8 @@ For the dialogues, you can create a txt file with the following format:
 
 
 (0 if left character, 1 if right character)|(character name)|(character emotion)|(speed mode)|(dialogue)
+(0 if left character, 1 if right character)|(character name)|(character emotion)|(speed mode)|(dialogue)
+...
 
 
 Example:
@@ -27,6 +29,7 @@ Example:
 0|Character1|NEUTRAL|NORMAL|How did you sleep last night?
 1|Character2|SAD|SLOW|...
 1|Character2|SAD|SLOW|I didn't sleep
+
 
 If you want to change the sprite of the character that not speaks first, write the following line at the begining of the file:
 
@@ -46,7 +49,7 @@ You can change the name, sprites(one for each emotion) and sound of the characte
 #### S_DialogueOptions
 
 
-You can change the seconds between characters ( speed of the dialogue ), the default sound, and if the character that is not speaking is visible or not.
+You can change the seconds between characters ( 1/(characters per second) ), the default sound, and if the character that is not speaking is visible or not.
 
 
 
