@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class S_Dialogue 
@@ -9,7 +7,7 @@ public class S_Dialogue
     private S_DialogueText[] dialogueTexts;
     private String dialogueID;
     private int cont=-1;
-    //For the sprite on the other side
+
    
     public S_Dialogue(TextAsset textAsset)
     {
@@ -37,18 +35,20 @@ public class S_Dialogue
 
         }
     }
+    //Getters
     public string getDialogueID()
     {
         return dialogueID;
     }
-    public S_DialogueText GetFirstDialogue() { 
+    public S_DialogueText getFirstDialogue() { 
         if (dialogueTexts.Length > 0)
         {
             return dialogueTexts[0];
         }
         return null;
     }
-    public S_DialogueText nextDialogue()
+    //Functions
+    public S_DialogueText NextDialogue()
     {
         cont++;
         if (cont<dialogueTexts.Length)

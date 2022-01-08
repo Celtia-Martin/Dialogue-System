@@ -1,6 +1,4 @@
 
-using UnityEngine;
-
 public enum S_Emotions 
 {
     NEUTRAL,

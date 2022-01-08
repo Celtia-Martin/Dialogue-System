@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class S_DialogueUiManager : MonoBehaviour
 {
     public static S_DialogueUiManager singleton;
+    //References (Editor)
     [SerializeField]
     private Text UIText;
     [SerializeField]
@@ -18,14 +19,21 @@ public class S_DialogueUiManager : MonoBehaviour
     private Color colorInactiveCharacter;
     [SerializeField]
     private string otherSpriteCommand = "OTHERSPRITE";
+
+    //References (Start)
     private GameObject dialogueCanvas;
     private AudioSource myAudioSource;
     private S_DialogueManager myManager;
+
+    //References (Dinamic)
     private S_Dialogue currentDialogue;
     private string currentDialogueText;
     private Coroutine secuentialText;
+
+    //Properties
     private bool otherCharacterInvisible;
 
+    //Unity Functions
     private void Awake()
     {
         if (singleton == null)
@@ -45,6 +53,7 @@ public class S_DialogueUiManager : MonoBehaviour
         myManager = S_DialogueManager.singleton;
         otherCharacterInvisible = myManager.getOtherSpriteVisible();
     }
+    // Principal Functions
     public void StartDialogue(string id)
     {
         currentDialogue = myManager.getDialogue(id);
@@ -56,9 +65,50 @@ public class S_DialogueUiManager : MonoBehaviour
         }
     }
 
-    private void ComprobateOtherCharacter()
+    public void OnContinue()
     {
-        S_DialogueText firstDialogue = currentDialogue.GetFirstDialogue();
+        if (secuentialText != null)
+        {
+            StopCoroutine(secuentialText);
+            secuentialText = null;
+            UIText.text = currentDialogueText;
+        }
+        else
+        {
+            if (currentDialogue != null)//Cambiar pa que si la corrutina está, salga todo el texto y ya está
+            {
+                S_DialogueText currentText = currentDialogue.NextDialogue();
+                if (currentText != null)
+                {
+                    currentDialogueText = currentText.getDialogueText();
+                    if (currentText.getIsRightCharacter())
+                    {
+                        ChangeRightSprite(myManager.getCharacterEmotionSprite(currentText.getEmotion(), currentText.getCharacterName()));
+
+                    }
+                    else
+                    {
+
+                        ChangeLeftSprite(myManager.getCharacterEmotionSprite(currentText.getEmotion(), currentText.getCharacterName()));
+                    }
+                    secuentialText = StartCoroutine(SecuencialText(myManager.getSpeed(currentText.getMode()), currentDialogueText, myManager.getCharacterSound(currentText.getCharacterName())));
+                }
+                else
+                {
+                    dialogueCanvas.SetActive(false);
+                }
+            }
+            else
+            {
+                dialogueCanvas.SetActive(false);
+            }
+        }
+    }
+
+         //Auxiliar Functions
+        private void ComprobateOtherCharacter()
+        {
+        S_DialogueText firstDialogue = currentDialogue.getFirstDialogue();
         if (firstDialogue != null && firstDialogue.getDialogueText().Trim().ToUpper().Equals(otherSpriteCommand))
         {
             if (firstDialogue.getIsRightCharacter())
@@ -69,7 +119,7 @@ public class S_DialogueUiManager : MonoBehaviour
             {
                 ChangeLeftSprite(myManager.getCharacterEmotionSprite(firstDialogue.getEmotion(), firstDialogue.getCharacterName()));
             }
-            currentDialogue.nextDialogue();
+            currentDialogue.NextDialogue();
         }
     }
 
@@ -110,47 +160,8 @@ public class S_DialogueUiManager : MonoBehaviour
 
     }
 
-    public void OnContinue()
-    {
-        if (secuentialText != null)
-        {
-            StopCoroutine(secuentialText);
-            secuentialText = null;
-            UIText.text = currentDialogueText;
-        }
-        else
-        {
-            if (currentDialogue != null)//Cambiar pa que si la corrutina está, salga todo el texto y ya está
-            {
-                S_DialogueText currentText = currentDialogue.nextDialogue();
-                if (currentText != null)
-                {
-                    currentDialogueText = currentText.getDialogueText();
-                    if (currentText.getIsRightCharacter())
-                    {
-                        ChangeRightSprite(myManager.getCharacterEmotionSprite(currentText.getEmotion(), currentText.getCharacterName()));
 
-                    }
-                    else
-                    {
-
-                        ChangeLeftSprite(myManager.getCharacterEmotionSprite(currentText.getEmotion(), currentText.getCharacterName()));
-                    }
-                    secuentialText = StartCoroutine(SecuencialText(myManager.getSpeed(currentText.getMode()), currentDialogueText, myManager.getCharacterSound(currentText.getCharacterName())));
-                }
-                else
-                {
-                    dialogueCanvas.SetActive(false);
-                }
-            }
-            else
-            {
-                dialogueCanvas.SetActive(false);
-            }
-        }
-        
-      
-    }
+    //Coroutines
     IEnumerator SecuencialText(float secondsBetween,string text,AudioClip sound)
     {
         List<char> characters = new List<char>();

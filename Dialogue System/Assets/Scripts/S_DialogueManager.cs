@@ -5,6 +5,7 @@ using UnityEngine;
 public class S_DialogueManager : MonoBehaviour
 {
     public static S_DialogueManager singleton;
+    //References
     [SerializeField]
     private S_DialogueCharacter[] characters;
     [SerializeField]
@@ -14,8 +15,10 @@ public class S_DialogueManager : MonoBehaviour
     [SerializeField]
     private S_DialogueOptions dialogueOptions;
 
+    //Dictionaries
     private Dictionary<string, S_Dialogue> dialogueDictionary;
     private Dictionary<string, S_DialogueCharacter> characterDictionary;
+
     private void Awake()
     {
         if (singleton == null)
@@ -43,6 +46,8 @@ public class S_DialogueManager : MonoBehaviour
             dialogueDictionary.Add(newDialogue.getDialogueID(), newDialogue);
         }
     }
+
+    //Getters 
 
    public Sprite getCharacterEmotionSprite(S_Emotions emotion,string nameCharacter)
     {

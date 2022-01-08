@@ -5,14 +5,16 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DialogueCharacters", menuName = "ScriptableObjects/DialogueCharacter", order = 1)]
 public class S_DialogueCharacter : ScriptableObject
 {
-   [SerializeField]
+    [SerializeField]
     private string characterName;
     [SerializeField]
     private Sprite[] emotionSprites;
     [SerializeField]
     private AudioClip sound;
  
-    //More things like sound, font...
+    //More things like font...
+
+    //Getters
     public string getCharacterName()
     {
         return characterName;

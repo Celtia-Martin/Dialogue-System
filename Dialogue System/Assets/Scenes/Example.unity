@@ -813,6 +813,7 @@ MonoBehaviour:
   spriteRight: {fileID: 921220563}
   continueButton: {fileID: 1502091977}
   colorInactiveCharacter: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
+  otherSpriteCommand: OTHERSPRITE
 --- !u!82 &782165090
 AudioSource:
   m_ObjectHideFlags: 0

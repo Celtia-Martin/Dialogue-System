@@ -12,8 +12,9 @@ public class S_DialogueOptions :ScriptableObject
     private AudioClip sound;
     [SerializeField]
     private bool otherSpriteIsInvisible;
+
     private static float defaultSpeed= 0.1f;
-    
+    //Getters
     public float getSpeed(int index)
     {
         if (index < characterSeconds.Length)
